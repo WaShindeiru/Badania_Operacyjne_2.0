@@ -1,13 +1,15 @@
 package com.ja.model.part;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class TruckQueue implements DayIncrementable, IFinishDay {
+public class TruckQueue implements DayIncrementable, IFinishDay, Iterable<Integer> {
 
     private int currentDay;
     private History history;
+
     private Queue<Truck> queue = new LinkedList<>();
     private List<Integer> expectedProductionList;
     private TruckPenalty truckPenalty;
@@ -51,6 +53,30 @@ public class TruckQueue implements DayIncrementable, IFinishDay {
 
     public boolean isEmpty() {
         return queue.isEmpty();
+    }
+
+    private class TruckQueueIterator implements Iterator<Integer> {
+
+        private final Iterator<Truck> linkedListIterator;
+
+        public TruckQueueIterator() {
+            linkedListIterator = queue.iterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return linkedListIterator.hasNext();
+        }
+
+        @Override
+        public Integer next() {
+            return linkedListIterator.next().getExpectedProduction();
+        }
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new TruckQueueIterator();
     }
 
     //    public static void main(String... args) {

@@ -21,6 +21,7 @@ public class CostFunction implements DayIncrementable, IFinishDay{
     private final FinishDayComposite finishDayComposite;
 
     private final Donate donate;
+    private final CumultativePenalty cumultativePenalty;
 
     public CostFunction(List<Integer> expectedProduction, List<Integer> scheduledProduction, int dayMax) throws IllegalArgumentException {
 
@@ -48,6 +49,7 @@ public class CostFunction implements DayIncrementable, IFinishDay{
         finishDayComposite.addFinishDayComposite(storage);
 
         donate = new Donate(history);
+        cumultativePenalty = new CumultativePenalty(truckQueue);
     }
 
     @Override
@@ -68,33 +70,53 @@ public class CostFunction implements DayIncrementable, IFinishDay{
             this.incrementDay();
 
             enoughProduction = true;
-            while(enoughProduction && !truckQueue.isEmpty()) {
+            int currentProduction = production.getCurrentProduction();
 
-                int requiredProduction = truckQueue.peek();
+            while(enoughProduction) {
 
-                int currentProduction = production.getCurrentProduction();
-
-                if(currentProduction >= requiredProduction) {
-                    truckQueue.removeTruck();
-                    storage.storeProduction(currentProduction - requiredProduction);
-
-                } else if (currentProduction + storage.getCurrentStorage() < requiredProduction) {
+                // if there are no truck in the queue
+                if(truckQueue.isEmpty()) {
                     enoughProduction = false;
+                    storage.storeProduction(currentProduction);
 
-                } else if (currentProduction + storage.getCurrentStorage() >= requiredProduction) {
-                    truckQueue.removeTruck();
-                    storage.takeStoredProduction(requiredProduction - currentProduction);
+                } else {
+                    int requiredProduction = truckQueue.peek();
+
+                    // if today's production is bigger than required production
+                    if(currentProduction >= requiredProduction) {
+                        truckQueue.removeTruck();
+                        currentProduction -= requiredProduction;
+
+                        // if today's production + production in storage is smaller than required production
+                    } else if (currentProduction + storage.getCurrentStorage() < requiredProduction) {
+                        enoughProduction = false;
+                        storage.storeProduction(currentProduction);
+
+                        // if today's production + production in storage is greater than required production
+                    } else if (currentProduction + storage.getCurrentStorage() >= requiredProduction) {
+                        truckQueue.removeTruck();
+                        storage.takeStoredProduction(requiredProduction - currentProduction);
+                        currentProduction = 0;
+
+                    }
                 }
             }
 
             this.finishDayComposite.finishDay();
         }
 
-        int cost = history.getTotalCost();
-        int donateCost = donate.getDonate();
+        double cost = history.getTotalCost();
+
+        double donateCost = donate.getDonate();
         cost -= donateCost;
+
+        double penaltyCost = cumultativePenalty.getPenalty();
+        cost += penaltyCost;
 
         return cost;
     }
 
+    public String getHistory() {
+        return history.toString();
+    }
 }

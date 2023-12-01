@@ -80,4 +80,9 @@ public class History implements DayIncrementable {
     public Iterator<Integer> getProductionHistoryIterator() {
         return new ProductionHistoryIterator();
     }
+
+    @Override
+    public String toString() {
+        return "Production history: " + productionHistory.toString() + "\n" + "Warehouse history: " + warehouseHistory.toString();
+    }
 }

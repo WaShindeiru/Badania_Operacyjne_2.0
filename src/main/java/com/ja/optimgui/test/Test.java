@@ -12,6 +12,8 @@ import java.util.List;
 
 public class Test {
 
+    public static CostFunction function;
+
     //funkcja celu, w tym przypadku dwa argumenty
     public static double objFunc(MVector args){
         double x = args.getElement(0);
@@ -41,7 +43,7 @@ public class Test {
 
         temp.forEach((var i) -> scheduledProductionList.add(i.intValue()));
 
-        CostFunction function = new CostFunction(expectedProduction, scheduledProductionList, numberOfDays);
+        function = new CostFunction(expectedProduction, scheduledProductionList, numberOfDays);
         return function.getCost();
     }
 
@@ -60,5 +62,7 @@ public class Test {
         Solver solver = new Solver(swarmSize, Test::productionObjFunc, lowBound, upBound, counter, w, c1, c2);
 
         solver.solve();
+
+        System.out.println(function.getHistory());
     }
 }

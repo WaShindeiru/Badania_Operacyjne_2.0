@@ -141,6 +141,12 @@ public class MVector {
         return temp;
     }
 
+    public void castToInt() {
+        vecArray = Arrays.stream(vecArray)
+                .map(v -> (double)((int) v))
+                .toArray();
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(vecArray);

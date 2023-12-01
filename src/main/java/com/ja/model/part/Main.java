@@ -23,17 +23,30 @@ public class Main {
                 200
         ));
 
+//        List<Integer> scheduledProduction = new ArrayList<>(Arrays.asList(
+//                300,
+//                200,
+//                500,
+//                700,
+//                900,
+//                1000,
+//                100,
+//                100,
+//                200,
+//                300
+//        ));
+
         List<Integer> scheduledProduction = new ArrayList<>(Arrays.asList(
-                300,
-                200,
-                500,
-                700,
-                900,
-                1000,
-                100,
-                100,
-                200,
-                300
+                0,
+                0,
+                724,
+                280,
+                61,
+                0,
+                0,
+                0,
+                0,
+                1000
         ));
 
         CostFunction function = new CostFunction(expectedProduction, scheduledProduction, numberOfDays);

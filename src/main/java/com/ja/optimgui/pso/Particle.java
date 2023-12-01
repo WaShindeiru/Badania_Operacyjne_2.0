@@ -35,6 +35,8 @@ public class Particle {
         velocity.set(velocity.scale(w).addElWise(bestPosition.subtractElWise(position).scale(c1*r1)).addElWise(globalBestPosition.subtractElWise(position).scale(c2*r2)));
         position.set(position.addElWise(velocity));
 
+        position.castToInt();
+
         // check if constraints are satisfied
         for(int i=0; i<position.getDimension(); i++) {
             if(position.getElement(i) < lowerBoundary.getElement(i)) {
