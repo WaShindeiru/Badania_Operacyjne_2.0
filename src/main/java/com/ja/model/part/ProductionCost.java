@@ -17,8 +17,9 @@ public class ProductionCost {
 
         production = new HashMap<>();
 
+        //liczba produktów - cena
         production.put(100, 10000);
-        production.put(200,19000);
+        production.put(200, 19000);
         production.put(300, 27000);
         production.put(400, 35000);
         production.put(500, 41000);

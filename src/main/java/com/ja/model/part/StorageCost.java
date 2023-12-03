@@ -15,6 +15,8 @@ public class StorageCost {
 
         storageMap = new HashMap<>();
 
+
+        //ilość w magazynie, kosz magazynowania
         storageMap.put(100, 3000);
         storageMap.put(200, 4000);
         storageMap.put(300, 6000);

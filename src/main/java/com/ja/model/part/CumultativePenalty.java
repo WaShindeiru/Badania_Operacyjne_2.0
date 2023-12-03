@@ -4,6 +4,8 @@ package com.ja.model.part;
 public class CumultativePenalty {
 
     private final TruckQueue truckQueue;
+
+    //kara od każdego brakującego produktu
     public double penaulty = 97.5;
 
     public CumultativePenalty(TruckQueue queue) {
