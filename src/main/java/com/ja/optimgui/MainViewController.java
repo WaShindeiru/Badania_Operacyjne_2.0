@@ -321,7 +321,8 @@ public class MainViewController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue){
                     if(dataPanelEvaluateOnExit(inertiaBox, inertiaErrorLabel, DataType.CHECK_DOUBLE, 0, 1)){
-                        iterStop = Integer.parseInt(inertiaBox.getPromptText());
+                        inertia = Double.parseDouble(inertiaBox.getPromptText());
+                        inertiaSlider.adjustValue(inertia);
                     }
                     c1Box.setText("");
                     anchorPane.requestFocus();
