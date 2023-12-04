@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,11 +21,19 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="496.0" prefWidth="481.0">
                      <children>
                         <Label layoutX="52.0" layoutY="54.0" text="Zapotrzebowanie " />
-                        <ListView fx:id="prodListView" layoutY="71.0" prefHeight="388.0" prefWidth="200.0" />
-                        <ListView fx:id="storageListView" layoutX="207.0" layoutY="71.0" prefHeight="388.0" prefWidth="200.0" />
+                        <ListView fx:id="prodListView" layoutY="71.0" prefHeight="52.0" prefWidth="197.0" />
+                        <ListView fx:id="storageListView" layoutX="216.0" layoutY="71.0" prefHeight="52.0" prefWidth="191.0" />
                         <Label layoutX="248.0" layoutY="54.0" text="Koszt magazynowania" />
-                        <ListView fx:id="penaltyListView" layoutX="413.0" layoutY="71.0" prefHeight="388.0" prefWidth="200.0" />
+                        <ListView fx:id="penaltyListView" layoutX="422.0" layoutY="71.0" prefHeight="52.0" prefWidth="191.0" />
                         <Label layoutX="422.0" layoutY="54.0" text="Kara za niezaładowanie ciężarówki" />
+                        <TableView fx:id="prodTable" layoutX="31.0" layoutY="158.0" prefHeight="282.0" prefWidth="447.0">
+                          <columns>
+                            <TableColumn fx:id="prodTableDayCol" prefWidth="75.0" text="Dzień" />
+                            <TableColumn fx:id="prodTableNeedCol" prefWidth="112.0" text="Zapotrzebowanie" />
+                              <TableColumn fx:id="prodTableTruckPenaltyCol" prefWidth="137.0" text="Kara za brak ciężarówki" />
+                              <TableColumn fx:id="prodTableOptionsCol" prefWidth="75.0" text="Opcje" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
             </content>
