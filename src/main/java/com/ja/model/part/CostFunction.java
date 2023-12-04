@@ -21,7 +21,7 @@ public class CostFunction implements DayIncrementable, IFinishDay{
     private final FinishDayComposite finishDayComposite;
 
     private final Donate donate;
-    private final CumultativePenalty cumultativePenalty;
+    private final CumulativePenalty cumulativePenalty;
 
     public CostFunction(List<Integer> expectedProduction, List<Integer> scheduledProduction, int dayMax) throws IllegalArgumentException {
 
@@ -49,7 +49,7 @@ public class CostFunction implements DayIncrementable, IFinishDay{
         finishDayComposite.addFinishDayComposite(storage);
 
         donate = new Donate(history);
-        cumultativePenalty = new CumultativePenalty(truckQueue);
+        cumulativePenalty = new CumulativePenalty(truckQueue);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class CostFunction implements DayIncrementable, IFinishDay{
         double donateCost = donate.getDonate();
         cost -= donateCost;
 
-        double penaltyCost = cumultativePenalty.getPenalty();
+        double penaltyCost = cumulativePenalty.getPenalty();
         cost += penaltyCost;
 
         return cost;
