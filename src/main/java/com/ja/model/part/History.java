@@ -11,10 +11,12 @@ public class History implements DayIncrementable {
 
     @Getter
     private int dayCounter;
+    @Getter
     private List<Integer> warehouseHistory;
+    @Getter
     private List<Integer> productionHistory;
     @Getter
-    private int totalCost;
+    private double totalCost;
     @Getter
     private int dayMax;
 
@@ -25,6 +27,14 @@ public class History implements DayIncrementable {
         dayCounter = -1;
         totalCost = 0;
         this.dayMax = dayMax;
+    }
+
+    public History() {
+        warehouseHistory = new ArrayList<>();
+        productionHistory = new ArrayList<>();
+
+        dayCounter = -1;
+        totalCost = 0;
     }
 
     @Override
@@ -40,7 +50,7 @@ public class History implements DayIncrementable {
         warehouseHistory.add(storage);
     }
 
-    public void addCost(int cost) {
+    public void addCost(double cost) {
         totalCost += cost;
     }
 

@@ -69,6 +69,10 @@ public class MVector {
         }
     }
 
+    public void reset() {
+        Arrays.fill(vecArray, Double.NaN);
+    }
+
     public void set(MVector other){
         for (int i = 0; i < this.dimension(); i++) {
             this.setElement(i, other.getElement(i));

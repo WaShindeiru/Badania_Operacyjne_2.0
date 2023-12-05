@@ -1,5 +1,7 @@
 package com.ja.optimgui.test;
 
+import com.ja.model.abstraction.IFactory;
+import com.ja.model.part.FactoryImpl;
 import com.ja.optimgui.math.MVector;
 import com.ja.optimgui.pso.Solver;
 
@@ -8,6 +10,7 @@ import com.ja.model.part.CostFunction;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Test {
@@ -47,22 +50,34 @@ public class Test {
         return function.getCost();
     }
 
-    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+//    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+//
+//        //Przedziały do rozpatrywania
+//        MVector lowBound = new MVector(new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
+//        MVector upBound = new MVector(new double[]{1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000});
+//
+//        int counter = 10;
+//        double w = 0.8;
+//        double c1 = 0.2;
+//        double c2 = 0.2;
+//        int swarmSize = 100000;
+//
+//        Solver solver = new Solver(swarmSize, Test::productionObjFunc, lowBound, upBound, counter, w, c1, c2);
+//
+//        solver.solve();
+//
+//        System.out.println(function.getHistory());
+//    }
 
-        //Przedziały do rozpatrywania
-        MVector lowBound = new MVector(new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0});
-        MVector upBound = new MVector(new double[]{1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000});
+    public static void main(String[] args) {
+        IFactory factory = new FactoryImpl();
 
-        int counter = 10;
-        double w = 0.8;
-        double c1 = 0.2;
-        double c2 = 0.2;
-        int swarmSize = 100000;
+        HashMap<Integer, Double> productionCost = new HashMap<>();
+        productionCost.put(100, 8000.);
+        productionCost.put(200, 15000.);
+        productionCost.put(300, 20000.);
 
-        Solver solver = new Solver(swarmSize, Test::productionObjFunc, lowBound, upBound, counter, w, c1, c2);
-
-        solver.solve();
-
-        System.out.println(function.getHistory());
+        factory.setProductionCost(productionCost);
+        factory.compute();
     }
 }

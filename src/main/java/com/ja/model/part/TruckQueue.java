@@ -15,10 +15,18 @@ public class TruckQueue implements DayIncrementable, IFinishDay, Iterable<Intege
     private TruckPenalty truckPenalty;
 
     TruckQueue(History history, TruckPenalty truckPenalty, List<Integer> expectedProductionList) {
+
         currentDay = -1;
         this.history = history;
         this.truckPenalty = truckPenalty;
         this.expectedProductionList = expectedProductionList;
+    }
+
+    TruckQueue(History history, TruckPenalty truckPenalty) {
+
+        currentDay = -1;
+        this.history = history;
+        this.truckPenalty = truckPenalty;
     }
 
     @Override
@@ -47,7 +55,7 @@ public class TruckQueue implements DayIncrementable, IFinishDay, Iterable<Intege
             }
         }
 
-        int cost = truckPenalty.getPenalty(count);
+        double cost = truckPenalty.getPenalty(count);
         history.addCost(cost);
     }
 

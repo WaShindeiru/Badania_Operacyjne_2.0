@@ -11,5 +11,5 @@ import lombok.Setter;
 public class ProductionDto {
 
     private int quantity;
-    private int value;
+    private double value;
 }

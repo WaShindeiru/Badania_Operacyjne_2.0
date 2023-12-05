@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class StorageCost {
 
-    private Map<Integer, Integer> storageMap;
+    private Map<Integer, Double> storageMap;
     private Set<Integer> keys;
     private int maxValue;
 
@@ -17,19 +17,31 @@ public class StorageCost {
 
 
         //ilość w magazynie, kosz magazynowania
-        storageMap.put(100, 3000);
-        storageMap.put(200, 4000);
-        storageMap.put(300, 6000);
-        storageMap.put(400, 8000);
-        storageMap.put(500, 7000);
-        storageMap.put(600, 8000);
-        storageMap.put(700, 9000);
+        storageMap.put(100, 3000.);
+        storageMap.put(200, 4000.);
+        storageMap.put(300, 6000.);
+        storageMap.put(400, 8000.);
+        storageMap.put(500, 7000.);
+        storageMap.put(600, 8000.);
+        storageMap.put(700, 9000.);
 
         keys = storageMap.keySet();
         maxValue = Collections.max(keys);
     }
 
-    public int getCost(int quantity) throws IllegalArgumentException {
+    public StorageCost(Map<Integer, Double> storageCostMap) {
+
+        setStorageCostMap(storageCostMap);
+    }
+
+    public void setStorageCostMap(Map<Integer, Double> storageCostMap) {
+
+        storageMap = new HashMap<>(storageCostMap);
+        keys = storageMap.keySet();
+        maxValue = Collections.max(keys);
+    }
+
+    public double getCost(int quantity) throws IllegalArgumentException {
 
         if(quantity == 0) {
             return 0;

@@ -2,6 +2,7 @@ package com.ja.optimgui.pso;
 
 import com.ja.optimgui.math.MVector;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,8 +13,6 @@ import java.util.function.Function;
 
 public class Solver {
 
-    private List<Particle> particles = new ArrayList<>();
-
     @Getter
     private MVector globalBestPosition;
 
@@ -23,21 +22,36 @@ public class Solver {
     @Getter
     private Particle bestParticle;
     private Function<MVector, Double> objectiveFunction;
+
     @Getter
-    private int counter;
+    @Setter
+    private MVector lowerBoundary;
     @Getter
+    @Setter
+    private MVector upperBoundary;
+    @Getter
+    @Setter
+    private int maxIter;
+    @Getter
+    @Setter
     private double w;
     @Getter
+    @Setter
     private double c1;
+    @Setter
     @Getter
     private double c2;
 
-    public Solver(int swarmSize, Function<MVector, Double> objectiveFunction, MVector lowerBoundary, MVector upperBoundary, int counter, double w, double c1, double c2) {
+    private int swarmSize;
+    private List<Particle> particles = new ArrayList<>();
 
+    public Solver(int swarmSize, Function<MVector, Double> objectiveFunction, MVector lowerBoundary, MVector upperBoundary, int maxIter, double w, double c1, double c2) {
+
+        this.swarmSize = swarmSize;
         bestValue = Double.POSITIVE_INFINITY;
         globalBestPosition = new MVector(lowerBoundary.dimension(), Double.NaN);
         this.objectiveFunction = objectiveFunction;
-        this.counter = counter;
+        this.maxIter = maxIter;
         this.w = w;
         this.c1 = c1;
         this.c2 = c2;
@@ -49,6 +63,10 @@ public class Solver {
             particles.add(particle);
         }
     }
+
+//    public void setSwarmSize(int size) {
+//
+//    }
 
     public void checkForBetterGlobalValue(Particle particle) {
         MVector particlePosition = particle.getPosition();
@@ -67,12 +85,12 @@ public class Solver {
     }
 
     public void update() {
-        //inertia weight constant
-        double w = 0.8;
-        //cognitive coefficient
-        double c1 = 0.1;
-        //social coefficient
-        double c2 = 0.1;
+//        //inertia weight constant
+//        double w = 0.8;
+//        //cognitive coefficient
+//        double c1 = 0.1;
+//        //social coefficient
+//        double c2 = 0.1;
 
         double r1 = ThreadLocalRandom.current().nextDouble(0, 1+1);
         double r2 = ThreadLocalRandom.current().nextDouble(0, 1+1);
@@ -95,7 +113,10 @@ public class Solver {
 
     public void solve() {
 
+        bestValue = Double.POSITIVE_INFINITY;
+        globalBestPosition.reset();
         double previousValue = Double.POSITIVE_INFINITY;
+        int  counter = 0;
 
         //na szybko zrobiona pętla do testowania algorytmu
         //counter w ifie mówi ile musi powtórzyć się wynik by uznać że można skończyć
@@ -116,8 +137,12 @@ public class Solver {
                 System.out.println(this.getBestValue());
                 break;
             }
-            previousValue = this.getBestValue();
+            previousValue = bestValue;
             this.update();
         }
+    }
+
+    public static SolverBuilder builder() {
+        return new SolverBuilder();
     }
 }

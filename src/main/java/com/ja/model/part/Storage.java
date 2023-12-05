@@ -25,7 +25,7 @@ public class Storage implements DayIncrementable, IFinishDay {
 
     @Override
     public void finishDay() {
-        int cost = storageCost.getCost(currentStorage);
+        var cost = storageCost.getCost(currentStorage);
         history.addCost(cost);
     }
 

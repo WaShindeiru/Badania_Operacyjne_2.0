@@ -23,6 +23,14 @@ public class Production implements DayIncrementable {
         this.productionCost = productionCost;
     }
 
+    public Production(History history, ProductionCost productionCost) {
+
+        currentDay = -1;
+        currentProduction = 0;
+        this.history = history;
+        this.productionCost = productionCost;
+    }
+
     @Override
     public void incrementDay() {
         currentDay++;
