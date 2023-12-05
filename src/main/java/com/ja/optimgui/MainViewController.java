@@ -1,5 +1,6 @@
 package com.ja.optimgui;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.util.Callback;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -80,6 +82,21 @@ public class MainViewController implements Initializable {
 
     @FXML
     private Label swarmSizeErrorLabel;
+
+    @FXML
+    private TableView<prodInputRow> prodTable;
+
+    @FXML
+    private TableColumn<prodInputRow, String> prodTableDayCol;
+
+    @FXML
+    private TableColumn<prodInputRow, String> prodTableNeedCol;
+
+    @FXML
+    private TableColumn<prodInputRow, String> prodTableOptionsCol;
+
+    @FXML
+    private TableColumn<prodInputRow, String> prodTableTruckPenaltyCol;
 
     @Getter
     private int swarmSize;
@@ -268,6 +285,14 @@ public class MainViewController implements Initializable {
         iterStop = 30;
         iterStopBox.setPromptText(String.valueOf(30));
 
+        prodTableDayCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<prodInputRow, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<prodInputRow, String> p) {
+                return new SimpleStringProperty(String.valueOf(p.getValue().getDay())) ;
+            }
+        });
+
+        prodTable.getItems().add(new prodInputRow());
 
         inertiaSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -296,7 +321,8 @@ public class MainViewController implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(!newValue){
                     if(dataPanelEvaluateOnExit(inertiaBox, inertiaErrorLabel, DataType.CHECK_DOUBLE, 0, 1)){
-                        iterStop = Integer.parseInt(inertiaBox.getPromptText());
+                        inertia = Double.parseDouble(inertiaBox.getPromptText());
+                        inertiaSlider.adjustValue(inertia);
                     }
                     c1Box.setText("");
                     anchorPane.requestFocus();
