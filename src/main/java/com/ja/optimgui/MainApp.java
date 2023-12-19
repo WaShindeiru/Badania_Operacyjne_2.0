@@ -1,5 +1,6 @@
 package com.ja.optimgui;
 
+import com.ja.model.part.FactoryImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,19 +34,23 @@ public class MainApp extends Application {
     }
 
     public void calculate(){
+        FactoryImpl factory = new FactoryImpl();
+
         swarmSize = mainViewController.getSwarmSize();
         inertia = mainViewController.getInertia();
         c1 = mainViewController.getC1();
         c2 = mainViewController.getC2();
         iterStop = mainViewController.getIterStop();
 
-        System.out.println("Dane{" +
-                "swarmSize=" + swarmSize +
-                ", inertia=" + inertia +
-                ", c1=" + c1 +
-                ", c2=" + c2 +
-                ", iterStop=" + iterStop +
-                '}');
+        factory.setSwarmSize(swarmSize);
+        factory.setInertia(inertia);
+        factory.setC1(c1);
+        factory.setC2(c2);
+        factory.setIterStop(iterStop);
+        var history = factory.compute();
+
+        System.out.println(history.getTotalCost());
+        System.out.println(history.getProductionHistory());
     }
 
     public static void main(String[] args) {

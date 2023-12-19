@@ -62,9 +62,8 @@ public class FactoryImpl implements IFactory {
             solver.solve();
             return solverBuilder.getHistory();
         } catch (Exception e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
