@@ -48,4 +48,8 @@ public class Particle {
             }
         }
     }
+
+    public void castToInt() {
+        this.position.castToInt();
+    }
 }

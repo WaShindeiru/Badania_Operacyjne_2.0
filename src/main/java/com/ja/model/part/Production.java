@@ -34,9 +34,12 @@ public class Production implements DayIncrementable {
     @Override
     public void incrementDay() {
         currentDay++;
+        int scheduledProductionTemp = this.scheduledProduction.get(currentDay);
 
-        ProductionDto temp = productionCost.getProduction(scheduledProduction.get(currentDay));
-        history.addProduction(temp.getQuantity());
+        ProductionDto temp = productionCost.getProduction(scheduledProductionTemp);
+        history.addProductionRounded(temp.getQuantity());
+        history.addProduction(scheduledProductionTemp);
+
         history.addCost(temp.getValue());
         currentProduction = temp.getQuantity();
     }

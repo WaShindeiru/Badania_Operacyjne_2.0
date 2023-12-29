@@ -41,6 +41,8 @@ public class Solver {
     @Setter
     @Getter
     private double c2;
+    @Getter
+    private List<Double> costHistory;
 
     private int swarmSize;
     private List<Particle> particles = new ArrayList<>();
@@ -55,10 +57,12 @@ public class Solver {
         this.w = w;
         this.c1 = c1;
         this.c2 = c2;
+        this.costHistory = new ArrayList<>();
 
         for (int i = 0; i < swarmSize; i++) {
 
             Particle particle = new Particle(lowerBoundary, upperBoundary);
+            particle.castToInt();
             this.checkForBetterGlobalValue(particle);
             particles.add(particle);
         }
@@ -113,14 +117,16 @@ public class Solver {
 
     public void solve() {
 
-        bestValue = Double.POSITIVE_INFINITY;
-        globalBestPosition.reset();
-        double previousValue = Double.POSITIVE_INFINITY;
+//        bestValue = Double.POSITIVE_INFINITY;
+//        globalBestPosition.reset();
+//        double previousValue = Double.POSITIVE_INFINITY;
+        double previousValue = bestValue;
         int  counter = 0;
 
         //na szybko zrobiona pętla do testowania algorytmu
         //counter w ifie mówi ile musi powtórzyć się wynik by uznać że można skończyć
         for (int i = 0; i < 10000; i++) {
+            costHistory.add(bestValue);
             System.out.println(this.getBestParticle().getPosition());
             System.out.println(this.getBestValue());
             if(this.getBestValue() == previousValue){

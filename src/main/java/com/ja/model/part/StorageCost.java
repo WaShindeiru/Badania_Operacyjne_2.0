@@ -1,32 +1,28 @@
 package com.ja.model.part;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class StorageCost {
 
     private Map<Integer, Double> storageMap;
     private Set<Integer> keys;
     private int maxValue;
+    private List<Integer> keysList;
 
     public StorageCost() {
 
-        storageMap = new HashMap<>();
-
+        Map<Integer, Double> temp = new HashMap<>();
 
         //ilość w magazynie, kosz magazynowania
-        storageMap.put(100, 3000.);
-        storageMap.put(200, 4000.);
-        storageMap.put(300, 6000.);
-        storageMap.put(400, 8000.);
-        storageMap.put(500, 7000.);
-        storageMap.put(600, 8000.);
-        storageMap.put(700, 9000.);
+        temp.put(100, 3000.);
+        temp.put(200, 4000.);
+        temp.put(300, 6000.);
+        temp.put(400, 8000.);
+        temp.put(500, 7000.);
+        temp.put(600, 8000.);
+        temp.put(700, 9000.);
 
-        keys = storageMap.keySet();
-        maxValue = Collections.max(keys);
+        this.setStorageCostMap(temp);
     }
 
     public StorageCost(Map<Integer, Double> storageCostMap) {
@@ -34,10 +30,12 @@ public class StorageCost {
         setStorageCostMap(storageCostMap);
     }
 
-    public void setStorageCostMap(Map<Integer, Double> storageCostMap) {
+    private void setStorageCostMap(Map<Integer, Double> storageCostMap) {
 
         storageMap = new HashMap<>(storageCostMap);
         keys = storageMap.keySet();
+        keysList = new ArrayList<>(keys);
+        Collections.sort(keysList);
         maxValue = Collections.max(keys);
     }
 
@@ -55,13 +53,28 @@ public class StorageCost {
             return storageMap.get(maxValue);
         }
 
-        if (storageMap.containsKey(quantity)) {
-            return storageMap.get(quantity);
-        }
+//        if (storageMap.containsKey(quantity)) {
+//            return storageMap.get(quantity);
+//        }
 
         else {
-            int temp = quantity + (100 - quantity % 100);
-            return storageMap.get(temp);
+            int currentQuantity = 0;
+
+            for(int i : keysList) {
+                if(i >= quantity) {
+                    currentQuantity = i;
+                    break;
+                }
+            }
+
+            if(currentQuantity == 0) {
+                throw new RuntimeException("Storage Cost error");
+            }
+
+            return storageMap.get(currentQuantity);
+
+//            int temp = quantity + (100 - quantity % 100);
+//            return storageMap.get(temp);
         }
     }
 }

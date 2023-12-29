@@ -4,6 +4,7 @@ import com.ja.model.abstraction.IFactory;
 import com.ja.model.dto.HistoryDTO;
 import com.ja.optimgui.pso.Solver;
 import com.ja.optimgui.pso.SolverBuilder;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,10 @@ public class FactoryImpl implements IFactory {
 
     private CostFunction.CostFunctionBuilder costFunctionBuilder;
     private SolverBuilder solverBuilder;
+    @Getter
+    private HistoryDTO historyDTO;
+    @Getter
+    private List<Double> costHistory;
 
     public FactoryImpl() {
         costFunctionBuilder = new CostFunction.CostFunctionBuilder();
@@ -60,7 +65,10 @@ public class FactoryImpl implements IFactory {
         try {
             Solver solver = solverBuilder.build();
             solver.solve();
-            return solverBuilder.getHistory();
+            this.historyDTO = solverBuilder.getHistory();
+            this.costHistory = solver.getCostHistory();
+            return historyDTO;
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

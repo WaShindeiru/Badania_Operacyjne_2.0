@@ -27,6 +27,7 @@ public class Storage implements DayIncrementable, IFinishDay {
     public void finishDay() {
         var cost = storageCost.getCost(currentStorage);
         history.addCost(cost);
+        history.addWarehouse(currentStorage);
     }
 
     public int getRemainingStorage() {

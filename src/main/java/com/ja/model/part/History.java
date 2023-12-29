@@ -14,6 +14,8 @@ public class History implements DayIncrementable {
     @Getter
     private List<Integer> warehouseHistory;
     @Getter
+    private List<Integer> productionHistoryRounded;
+    @Getter
     private List<Integer> productionHistory;
     @Getter
     private double totalCost;
@@ -21,16 +23,13 @@ public class History implements DayIncrementable {
     private int dayMax;
 
     public History(int dayMax) {
-        warehouseHistory = new ArrayList<>();
-        productionHistory = new ArrayList<>();
-
-        dayCounter = -1;
-        totalCost = 0;
+        this();
         this.dayMax = dayMax;
     }
 
     public History() {
         warehouseHistory = new ArrayList<>();
+        productionHistoryRounded = new ArrayList<>();
         productionHistory = new ArrayList<>();
 
         dayCounter = -1;
@@ -42,8 +41,12 @@ public class History implements DayIncrementable {
         dayCounter += 1;
     }
 
+    public void addProductionRounded(int production) {
+        productionHistoryRounded.add(production);
+    }
+
     public void addProduction(int production) {
-        productionHistory.add(production);
+        this.productionHistory.add(production);
     }
 
     public void addWarehouse(int storage) {
@@ -55,7 +58,7 @@ public class History implements DayIncrementable {
     }
 
     public int getProduction(int day) {
-        return productionHistory.get(day);
+        return productionHistoryRounded.get(day);
     }
 
     private class ProductionHistoryIterator implements Iterator<Integer> {
@@ -64,7 +67,7 @@ public class History implements DayIncrementable {
         List<Integer> productionHistory;
 
         ProductionHistoryIterator() {
-            this.productionHistory = History.this.productionHistory;
+            this.productionHistory = History.this.productionHistoryRounded;
             index = 0;
         }
 
@@ -93,6 +96,6 @@ public class History implements DayIncrementable {
 
     @Override
     public String toString() {
-        return "Production history: " + productionHistory.toString() + "\n" + "Warehouse history: " + warehouseHistory.toString();
+        return "Production history: " + productionHistoryRounded.toString() + "\n" + "Warehouse history: " + warehouseHistory.toString();
     }
 }

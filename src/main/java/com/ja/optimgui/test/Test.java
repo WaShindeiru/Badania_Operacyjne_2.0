@@ -8,10 +8,8 @@ import com.ja.optimgui.pso.Solver;
 import com.ja.model.part.CostFunction;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Test {
 
@@ -70,14 +68,10 @@ public class Test {
 //    }
 
     public static void main(String[] args) {
-        IFactory factory = new FactoryImpl();
-
-        HashMap<Integer, Double> productionCost = new HashMap<>();
-        productionCost.put(100, 8000.);
-        productionCost.put(200, 15000.);
-        productionCost.put(300, 20000.);
-
-        factory.setProductionCost(productionCost);
+        FactoryImpl factory = new FactoryImpl();
         factory.compute();
+
+        var costHistory = factory.getCostHistory();
+        System.out.println(costHistory);
     }
 }

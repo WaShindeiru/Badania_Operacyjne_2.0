@@ -50,7 +50,7 @@ public class MainApp extends Application {
         var history = factory.compute();
 
         System.out.println(history.getTotalCost());
-        System.out.println(history.getProductionHistory());
+        System.out.println(history.getProductionHistoryRounded());
     }
 
     public static void main(String[] args) {

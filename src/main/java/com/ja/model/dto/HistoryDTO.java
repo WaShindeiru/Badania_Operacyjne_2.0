@@ -12,14 +12,16 @@ import java.util.List;
 public class HistoryDTO {
 
     private List<Integer> warehouseHistory;
+    private List<Integer> productionHistoryRounded;
     private List<Integer> productionHistory;
     private double totalCost;
     private int dayMax;
 
     public HistoryDTO(History history) {
         warehouseHistory = history.getWarehouseHistory();
-        productionHistory = history.getProductionHistory();
+        productionHistoryRounded = history.getProductionHistoryRounded();
         totalCost = history.getTotalCost();
         dayMax = history.getDayMax();
+        productionHistory = history.getProductionHistory();
     }
 }
