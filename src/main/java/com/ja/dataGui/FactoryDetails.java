@@ -14,7 +14,10 @@ public class FactoryDetails {
 
     private Map<Integer, Double> productionCostMap;
     private Map<Integer, Double> storageCostMap;
+
     private Map<Integer, Double> truckCostMap;
+
+//    private List<Double> truckCostMap;
 
     private double donateValue;
     private double cumulativePenaltyValue;

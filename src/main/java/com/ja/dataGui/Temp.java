@@ -8,15 +8,20 @@ import lombok.ToString;
 import java.util.HashMap;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 @ToString
 public class Temp {
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
     HashMap<Integer, String> people;
 
     public Temp() {};
+
+    public Temp(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
