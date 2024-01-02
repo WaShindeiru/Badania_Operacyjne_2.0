@@ -1,9 +1,7 @@
-/* .container {
-    
-} */
-
-.application {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+.container {
+    width: 80%;
 }
+
+/* .application {
+    width: 100%;
+} */

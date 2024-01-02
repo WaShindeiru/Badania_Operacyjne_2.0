@@ -16,7 +16,19 @@ export class PlotlyService {
     };
                   
     let layout = {
-      title:title
+      title:title,
+
+      xaxis: {
+        title: {
+          text: "Liczba Iteracji"
+        }
+      },
+
+      yaxis: {
+        title: {
+          text: "Koszt"
+        }
+      }
     };
     
     Plotly.newPlot(plotDiv, [trace], layout);     

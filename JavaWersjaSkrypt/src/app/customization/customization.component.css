@@ -1,32 +1,93 @@
+.height-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    background-color: rgb(195, 227, 236);
+}
+
+.center-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
 .formContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
+}
+
+.resultPage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.resultTableDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.innerResultTableDiv {
+    flex: 1;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.firstColumn {
+    flex: 1;
+    flex: 4;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.secondColumn {
+    flex: 1;
+    flex: 6;
 }
 
 .firstColumnInputContainer {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    background-color: rgb(115, 178, 196);
+}
+
+.factoryPropertiesSeparate {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between
 }
 
 .algorithmProperites {
-    background-color: lightgreen;
-}
-
-.firstColumn {
-    /* flex: 1; */
-    background-color: aqua;
 }
 
 .inputDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.inputDivContainer {
+    flex: 1;
     padding: 10px;
 }
 
-.secondColumn {
-    flex: 1;
-    background-color: red;
+.labelDiv {
+    display: flex;
+    justify-content: center;
 }
+
 
 .twoTable {
     display: flex;
@@ -38,14 +99,21 @@ label {
     display: block;
 }
 
-.table1 {
+/* .table1 {
     padding: 10px;
-}
+} */
 
 .inputTable {
     padding-left: 10px;
     padding-right: 10px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.tableLabel {
+    height: 62px;
 }
 
 td, th {
@@ -63,13 +131,39 @@ div, input {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.table-input {
+    height: 29px;
 }
 
 input[type="text"] {
     width: 100px;
 }
 
-.resultPage {
+.costDisplay {
+    margin-left: 10px;
+}
+
+input.ng-invalid.ng-touched {
+    border: 2px solid red;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.validationMessage {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.help-block {
     display: flex;
     flex-direction: row;
     justify-content: center;

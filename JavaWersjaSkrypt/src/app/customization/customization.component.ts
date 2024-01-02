@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../http.service';
 import { PlotlyService } from '../plotly.service';
+import { checkIfNumber, checkIfNumberInRange, checkIfNumberPositive, checkIfNumberPositiveFloat, negativeValidator } from './Validators';
 
 @Component({
   selector: 'app-customization',
@@ -12,24 +13,30 @@ export class CustomizationComponent implements OnInit{
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   products: number[] = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
+  totalCost: number = 0;
+  productionHistory: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  productionHistoryRounded: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  warehouseHistory: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  costHistory: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
   customizationForm!: FormGroup;
 
   constructor(private httpService: HttpService, private plot: PlotlyService) {}
 
   ngOnInit() {
-    let productionCostMap = [10000, 27000, 19000, 35000, 41000, 50000, 54000]
+    let productionCostMap = [10000, 27000, 19000, 35000, 41000, 50000, 54000, 60000, 70000, 80000]
     let productionArray = [];
     for(let i=0; i<productionCostMap.length; i++) {
       productionArray.push(new FormControl(productionCostMap[i],
-        Validators.required));
+        [Validators.required, negativeValidator.bind(this), checkIfNumber.bind(this)]));
 
     }
 
-    let warehouseCostMap = [3000, 4000, 6000, 8000, 7000, 8000, 9000];
+    let warehouseCostMap = [3000, 4000, 6000, 8000, 7000, 8000, 9000, 1000, 1100, 1200];
     let warehouseArray = [];
     for(let i=0; i<warehouseCostMap.length; i++) {
       warehouseArray.push(new FormControl(warehouseCostMap[i],
-        Validators.required));
+        [Validators.required, negativeValidator.bind(this), checkIfNumber.bind(this)]));
 
     }
 
@@ -37,7 +44,7 @@ export class CustomizationComponent implements OnInit{
     let penaltyArray = [];
     for(let i=0; i<truckCostMap.length; i++) {
       penaltyArray.push(new FormControl(truckCostMap[i],
-        Validators.required));
+        [Validators.required, negativeValidator.bind(this), checkIfNumber.bind(this)]));
 
     }
 
@@ -45,7 +52,7 @@ export class CustomizationComponent implements OnInit{
     let scheduledArray = [];
     for(let i=0; i<scheduledProductionTemp.length; i++) {
       scheduledArray.push(new FormControl(scheduledProductionTemp[i],
-        Validators.required));
+        [Validators.required, negativeValidator.bind(this), checkIfNumber.bind(this)]));
 
     }
 
@@ -53,27 +60,27 @@ export class CustomizationComponent implements OnInit{
 
       algorithmProperites: new FormGroup({
         swarmSize: new FormControl(100,
-          Validators.required),
+          [Validators.required, checkIfNumberPositive.bind(this)]),
         
         inertia: new FormControl(0.8,
-          Validators.required),
+          [Validators.required, checkIfNumberInRange.bind(this)]),
         
         c1: new FormControl(0.1,
-          Validators.required),
+          [Validators.required, checkIfNumberInRange.bind(this)]),
 
         c2: new FormControl(0.1,
-          Validators.required),
+          [Validators.required, checkIfNumberInRange.bind(this)]),
 
         iterStop: new FormControl(10,
-          Validators.required)
+        [Validators.required, checkIfNumberPositive.bind(this)])
       }),
 
       factoryProperties: new FormGroup({
         'donateValue': new FormControl(2000,
-          Validators.required),
+          [Validators.required, checkIfNumberPositiveFloat.bind(this)]),
           
         'cumPenaltyValue': new FormControl(97.5,
-          Validators.required),
+          [Validators.required, checkIfNumberPositiveFloat.bind(this)]),
           
         'productionTable': new FormArray(productionArray),
 
@@ -107,7 +114,7 @@ export class CustomizationComponent implements OnInit{
   // }
 
   onSubmit() {
-    console.log("submitted");
+    console.log(this.customizationForm);
 
     const production = this.customizationForm.get('factoryProperties.productionTable').value;
     const productionCostMap = {};
@@ -153,7 +160,13 @@ export class CustomizationComponent implements OnInit{
         x.push(i);
       }
 
-      this.plot.plotLine("Line Plot","plot",x,aha.costHistory);
+      this.plot.plotLine("Wykres kosztu od liczby iteracji","plot",x,aha.costHistory);
+
+      this.totalCost = aha.totalCost;
+      this.productionHistory = aha.productionHistory;
+      this.productionHistoryRounded = aha.productionHistoryRounded;
+      this.warehouseHistory = aha.warehouseHistory;
+      this.costHistory = aha.costHistory;
     })
 
   }
