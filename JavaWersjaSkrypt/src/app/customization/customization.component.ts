@@ -14,6 +14,8 @@ export class CustomizationComponent implements OnInit{
   products: number[] = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
   totalCost: number = 0;
+  numberOfIter: number = 0;
+  missedProduction: number = 0;
   productionHistory: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   productionHistoryRounded: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   warehouseHistory: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -24,7 +26,7 @@ export class CustomizationComponent implements OnInit{
   constructor(private httpService: HttpService, private plot: PlotlyService) {}
 
   ngOnInit() {
-    let productionCostMap = [10000, 27000, 19000, 35000, 41000, 50000, 54000, 60000, 70000, 80000]
+    let productionCostMap = [5000, 14000, 15000, 17000, 20000, 52000, 27000, 30000, 35000, 40000]
     let productionArray = [];
     for(let i=0; i<productionCostMap.length; i++) {
       productionArray.push(new FormControl(productionCostMap[i],
@@ -167,6 +169,8 @@ export class CustomizationComponent implements OnInit{
       this.productionHistoryRounded = aha.productionHistoryRounded;
       this.warehouseHistory = aha.warehouseHistory;
       this.costHistory = aha.costHistory;
+      this.numberOfIter = aha.iterationCount;
+      this.missedProduction = aha.missingProductionCount;
     })
 
   }

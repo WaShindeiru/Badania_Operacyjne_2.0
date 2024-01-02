@@ -42,4 +42,18 @@ public class CumulativePenalty {
             return missedProduction * penalty;
         }
     }
+
+    public int getMissingProduct() {
+        int missedProduction = 0;
+
+        for(var i : truckQueue) {
+            missedProduction += i;
+        }
+
+        if (missedProduction < 0) {
+            throw new RuntimeException("Missed Production is lower than 0!");
+        } else {
+            return missedProduction;
+        }
+    }
 }

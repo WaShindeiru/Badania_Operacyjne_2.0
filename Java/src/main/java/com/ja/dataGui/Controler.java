@@ -33,6 +33,6 @@ public class Controler {
         HistoryDTO history = factory.compute();
         var costHistory = factory.getCostHistory();
 
-        return ResponseEntity.ok(new ResponseDTO(history, costHistory));
+        return ResponseEntity.ok(new ResponseDTO(history, costHistory, factory.getNumberOfIter()));
     }
 }

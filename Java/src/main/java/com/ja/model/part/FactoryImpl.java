@@ -17,6 +17,8 @@ public class FactoryImpl implements IFactory {
     private HistoryDTO historyDTO;
     @Getter
     private List<Double> costHistory;
+    @Getter
+    private int numberOfIter;
 
     public FactoryImpl() {
         costFunctionBuilder = new CostFunction.CostFunctionBuilder();
@@ -67,6 +69,7 @@ public class FactoryImpl implements IFactory {
             solver.solve();
             this.historyDTO = solverBuilder.getHistory();
             this.costHistory = solver.getCostHistory();
+            this.numberOfIter = solver.getIterNumber();
             return historyDTO;
 
         } catch (Exception e) {

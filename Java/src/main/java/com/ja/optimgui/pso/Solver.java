@@ -43,6 +43,8 @@ public class Solver {
     private double c2;
     @Getter
     private List<Double> costHistory;
+    @Getter
+    private int iterNumber = 0;
 
     private int swarmSize;
     private List<Particle> particles = new ArrayList<>();
@@ -125,7 +127,7 @@ public class Solver {
 
         //na szybko zrobiona pętla do testowania algorytmu
         //counter w ifie mówi ile musi powtórzyć się wynik by uznać że można skończyć
-        for (int i = 0; i < 10000; i++) {
+        for (iterNumber = 0; iterNumber < 10000; iterNumber++) {
             costHistory.add(bestValue);
             System.out.println(this.getBestParticle().getPosition());
             System.out.println(this.getBestValue());
@@ -135,10 +137,10 @@ public class Solver {
                 counter = 0;
             }
 
-            if (counter >= 10){
+            if (counter >= maxIter){
                 System.out.println();
                 System.out.println("znaleziono:");
-                System.out.println("Iteracje: " + i);
+                System.out.println("Iteracje: " + iterNumber);
                 System.out.println(this.getBestParticle().getPosition());
                 System.out.println(this.getBestValue());
                 break;

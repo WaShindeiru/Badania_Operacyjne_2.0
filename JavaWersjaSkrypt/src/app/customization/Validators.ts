@@ -50,5 +50,9 @@ export function checkIfNumberPositiveFloat(control: FormControl): {[s: string]: 
         return {'notANumber': true};
     }
 
+    if(temp < 0) {
+        return {'negativeNumber': true};
+    }
+
     return null;
 }

@@ -20,7 +20,10 @@ public class ResponseDTO {
     private int dayMax;
     private List<Double> costHistory;
 
-    public ResponseDTO(HistoryDTO historyDTO, List<Double> costHistory) {
+    private int missingProductionCount;
+    private int iterationCount;
+
+    public ResponseDTO(HistoryDTO historyDTO, List<Double> costHistory, int iterationCount) {
         this.warehouseHistory = historyDTO.getWarehouseHistory();
         this.productionHistoryRounded = historyDTO.getProductionHistoryRounded();
         this.productionHistory = historyDTO.getProductionHistory();
@@ -28,5 +31,7 @@ public class ResponseDTO {
         this.dayMax = historyDTO.getDayMax();
 
         this.costHistory = costHistory;
+        this.iterationCount = iterationCount;
+        this.missingProductionCount = historyDTO.getMissingProductionCount();
     }
 }

@@ -119,6 +119,8 @@ public class CostFunction implements DayIncrementable, IFinishDay{
         double penaltyCost = cumulativePenalty.getPenalty();
         cost += penaltyCost;
 
+        history.setMissingProduct(cumulativePenalty.getMissingProduct());
+
         return cost;
     }
 

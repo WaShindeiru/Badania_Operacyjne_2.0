@@ -5,4 +5,8 @@ export interface ResponseData {
     totalCost: number,
     dayMax: number,
     costHistory: number[]
+
+    //new
+    missingProductionCount: number;
+    iterationCount: number;
 }

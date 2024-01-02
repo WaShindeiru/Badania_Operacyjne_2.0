@@ -168,3 +168,9 @@ input.ng-invalid.ng-touched {
     flex-direction: row;
     justify-content: center;
 }
+
+.flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}

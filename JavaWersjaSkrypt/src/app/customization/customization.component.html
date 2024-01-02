@@ -125,7 +125,10 @@
                         <div class="validationMessage">
 
                             <div class="help-block"
-                            *ngIf="this.customizationForm.get('factoryProperties.productionTable').status === 'INVALID'">
+                            *ngIf="this.customizationForm.get('factoryProperties.productionTable').status === 'INVALID'
+                            || this.customizationForm.get('factoryProperties.warehouseTable').status === 'INVALID' ||
+                            this.customizationForm.get('factoryProperties.penaltyTable').status === 'INVALID' ||
+                            this.customizationForm.get('factoryProperties.scheduledProduction').status === 'INVALID'">
                                 <span class="fs-6">Koszt musi być dodatnią liczbą!</span>
                                 <br>
                             </div>
@@ -279,8 +282,17 @@
             <div class="firstColumn">
                 <div class="costDisplay">
                     <span class="fs-4 fw-bold">Znalezione rozwiązanie: </span>
-                    <br>
-                    <span class="fs-5 fw-bold">Koszt: {{this.totalCost}}</span>
+                    <div class="flexSpaceBetween">
+                        <div>
+                            <span class="fs-5 fw-bold">Koszt: <br>{{this.totalCost}}</span>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold">Liczba iteracji: <br>{{this.numberOfIter}}</span>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold">Liczba brakujących produków: <br>{{this.missedProduction}}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="resultTableDiv">
                     <div class="innerResultTableDiv">

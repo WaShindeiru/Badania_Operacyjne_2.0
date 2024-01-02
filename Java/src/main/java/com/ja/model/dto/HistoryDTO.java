@@ -16,6 +16,7 @@ public class HistoryDTO {
     private List<Integer> productionHistory;
     private double totalCost;
     private int dayMax;
+    private int missingProductionCount;
 
     public HistoryDTO(History history) {
         warehouseHistory = history.getWarehouseHistory();
@@ -23,5 +24,6 @@ public class HistoryDTO {
         totalCost = history.getTotalCost();
         dayMax = history.getDayMax();
         productionHistory = history.getProductionHistory();
+        missingProductionCount = history.getMissingProduct();
     }
 }

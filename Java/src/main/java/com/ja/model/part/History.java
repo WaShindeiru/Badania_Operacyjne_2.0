@@ -1,6 +1,7 @@
 package com.ja.model.part;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,6 +22,9 @@ public class History implements DayIncrementable {
     private double totalCost;
     @Getter
     private int dayMax;
+    @Getter
+    @Setter
+    private int missingProduct;
 
     public History(int dayMax) {
         this();
