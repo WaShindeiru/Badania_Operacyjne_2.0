@@ -1,0 +1,357 @@
+<div class="center-container">
+
+    <div class="height-container">
+
+        <form [formGroup]="customizationForm" (ngSubmit)="onSubmit()">
+        <div class="formContainer">
+            <div class="firstColumn">
+
+                <div class="algorithmProperites" formGroupName="algorithmProperites">
+                    <div class="firstColumnInputContainer">
+                        <div class="inputDivContainer">
+
+                            <div class="labelDiv">
+                                <span>Rozmiar stada (ilość cząstek)</span>
+                            </div>
+                            <div class="inputDiv">
+                                <input 
+                                type="text" 
+                                class="form-control"
+                                id="swarmSize"
+                                formControlName="swarmSize">
+                            </div>
+
+                        </div>
+                        <div class="inputDivContainer">
+
+                            <div class="labelDiv">
+                                <span>Bezwładność, zakres <0, 1> </span>
+                            </div>
+                            <div class="inputDiv">
+                                <input 
+                                type="text" 
+                                class="form-control"
+                                id="inertia"
+                                formControlName="inertia">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="firstColumnInputContainer">
+                        <div class="inputDivContainer">
+
+                            <div class="labelDiv">
+                                <span>C1 - Współczynnik poznawczy, zakres <0, 1></span>
+                            </div>
+                            <div class="inputDiv">
+                                <input 
+                                type="text" 
+                                class="form-control"
+                                id="c1"
+                                formControlName="c1">
+                            </div>
+                        
+                        </div>
+                        <div class="inputDivContainer">
+
+                            <div class="labelDiv">
+                                <span>C2 - współczynnik społeczny, zakres <0, 1></span>
+                            </div>
+                            <div class="inputDiv">
+                                <input 
+                                type="text" 
+                                class="form-control"
+                                id="c2"
+                                formControlName="c2">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="firstColumnInputContainer">
+                        <div class="inputDivContainer">
+
+                            <div class="labelDiv">
+                                <span>Ilość iteracji z tą samą wartością do stopu</span>
+                            </div>
+                            <div class="inputDiv">
+                                <input 
+                                type="text"
+                                class="form-control"
+                                id="iterStop"
+                                formControlName="iterStop">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="factoryPropertiesSeparate">
+
+                    <div class="factoryProperties" formGroupName="factoryProperties">
+                            <div class="firstColumnInputContainer">
+                                <div class="inputDivContainer">
+                                    <div class="labelDiv">
+                                        <span>Wartość Dotacji</span>
+                                    </div>
+                                    <div class="inputDiv">
+                                        <input 
+                                        type="text" 
+                                        class="form-control"
+                                        id="donateValue"
+                                        formControlName="donateValue">
+                                    </div>
+                                </div>
+
+                                <div class="inputDivContainer">
+
+                                    <div class="labelDiv">
+                                        <span>Kara za każdy brakujący produkt</span>
+                                    </div>
+                                    <div class="inputDiv">
+                                        <input 
+                                        type="text" 
+                                        class="form-control"
+                                        id="cumPenaltyValue"
+                                        formControlName="cumPenaltyValue">
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="bottom">
+                        <div class="validationMessage">
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('factoryProperties.productionTable').status === 'INVALID'
+                            || this.customizationForm.get('factoryProperties.warehouseTable').status === 'INVALID' ||
+                            this.customizationForm.get('factoryProperties.penaltyTable').status === 'INVALID' ||
+                            this.customizationForm.get('factoryProperties.scheduledProduction').status === 'INVALID'">
+                                <span class="fs-6">Koszt musi być dodatnią liczbą!</span>
+                                <br>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('algorithmProperites.swarmSize').status === 'INVALID'">
+                                <span class="fs-6">Rozmiar stada musi być dodatnią liczbą całkowitą</span>
+                                <br>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('algorithmProperites.inertia').status === 'INVALID'">
+                                <span class="fs-6">Bezwładność musi być liczbą z zakresu <0,1></span>
+                                <br>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('algorithmProperites.c2').status === 'INVALID'">
+                                <span class="fs-6">Współczynnik poznawczy musi być liczbą z zakresu <0,1></span>
+                                <br>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('algorithmProperites.c1').status === 'INVALID'">
+                                <span class="fs-6">Współczynnik społeczny musi być liczbą z zakresu <0,1></span>
+                                <br>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('algorithmProperites.iterStop').status === 'INVALID'">
+                                <span class="fs-6">Ilość iteracji musi być dodatnią liczbą całkowitą</span>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('factoryProperties.donateValue').status === 'INVALID'">
+                                <span class="fs-6">Wartość dotacji musi być liczbą dodatnią!</span>
+                            </div>
+
+                            <div class="help-block"
+                            *ngIf="this.customizationForm.get('factoryProperties.cumPenaltyValue').status === 'INVALID'">
+                                <span class="fs-6">Kara musi być liczbą dodatnią!</span>
+                            </div>
+
+                        </div>
+                        <div class="buttonDiv">
+                            <button type="submit" class="btn btn-primary" [disabled]="this.customizationForm.status==='INVALID'">
+                                Oblicz
+                            </button>
+                        </div>
+                    </div>
+        
+                </div>
+
+            </div>
+
+            <div class="secondColumn">
+                <div class="twoTable" formGroupName="factoryProperties">
+                    <div class="inputTable" formArrayName="productionTable">
+                        <div class="tableLabel">
+                            <p class="fs-5 fw-bold">Koszt Produkcji</p>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Liczba</th>
+                                    <th>Koszt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                *ngFor="let production of getProductionCost(); let i = index"
+                                >
+                                    <td>{{products[i]}}</td>
+                                    <td><input type="text" class="form-control table-input" [formControlName]="i"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="inputTable" formArrayName="warehouseTable">
+                        <div class="tableLabel">
+                            <p class="fs-5 fw-bold">Koszt magazynowania</p>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Liczba</th>
+                                    <th>Koszt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                *ngFor="let production of getWarehouseCost(); let i = index"
+                                >
+                                    <td>{{products[i]}}</td>
+                                    <td><input type="text" class="form-control table-input" [formControlName]="i"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="inputTable" formArrayName="penaltyTable">
+                        <div class="tableLabel">
+                            <p class="fs-5 fw-bold">Kara za brak produktów</p>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Liczba</th>
+                                    <th>Koszt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                *ngFor="let production of getPenaltyTable(); let i = index"
+                                >
+                                    <td>{{i + 1}}</td>
+                                    <td><input type="text" class="form-control table-input" [formControlName]="i"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="inputTable" formArrayName="scheduledProduction">
+                        <div class="tableLabel">
+                            <p class="fs-5 fw-bold">Harmonogram</p>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Liczba</th>
+                                    <th>Koszt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                *ngFor="let production of getScheduledProduction(); let i = index"
+                                >
+                                    <td>{{i + 1}}</td>
+                                    <td><input type="text" class="form-control table-input" [formControlName]="i"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
+        <div class="resultPage">
+            <div class="firstColumn">
+                <div class="costDisplay">
+                    <span class="fs-4 fw-bold">Znalezione rozwiązanie: </span>
+                    <div class="flexSpaceBetween">
+                        <div>
+                            <span class="fs-5 fw-bold">Koszt: <br>{{this.totalCost}}</span>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold">Liczba iteracji: <br>{{this.numberOfIter}}</span>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold">Liczba brakujących produków: <br>{{this.missedProduction}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resultTableDiv">
+                    <div class="innerResultTableDiv">
+                    <span class="fs-6">Produkcja:</span>
+                    <div class="resultTable">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Dzień</th>
+                                    <td
+                                    *ngFor="let i of numbers;"
+                                    >{{i}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Ilość</th>
+                                    <td
+                                    *ngFor="let production of this.productionHistoryRounded; let i = index;"
+                                    >{{production}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="resultTableDiv">
+                    <div class="innerResultTableDiv">
+                        <span class="fs-6">Magazyn:</span>
+                        <div class="resultTable">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Dzień</th>
+                                        <td
+                                        *ngFor="let i of numbers"
+                                        >{{i}}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Ilość</th>
+                                        <td
+                                        *ngFor="let warehouse of this.warehouseHistory; let i = index;"
+                                        >{{warehouse}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secondColumn">
+                <div id="plot" style="height: 400px;"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
