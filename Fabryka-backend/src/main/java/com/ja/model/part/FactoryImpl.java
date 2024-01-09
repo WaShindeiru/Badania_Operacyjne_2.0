@@ -1,11 +1,13 @@
 package com.ja.model.part;
 
+import com.ja.math.MVector;
 import com.ja.model.abstraction.IFactory;
 import com.ja.model.dto.HistoryDTO;
 import com.ja.pso.Solver;
 import com.ja.pso.SolverBuilder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +69,26 @@ public class FactoryImpl implements IFactory {
         try {
             Solver solver = solverBuilder.build();
             solver.solve();
-            this.historyDTO = solverBuilder.getHistory();
+
+            // Poniższe to jakbyto powiedział Latocha impowizacja
+            MVector temp = solver.getGlobalBestPosition();
+
+            var costFunctionBuilder = solverBuilder.getCostFunctionBuilder();
+
+            List<Double> temp3 = temp.toList();
+            List<Integer> scheduledProductionList = new ArrayList<>();
+
+            temp3.forEach((var i) -> scheduledProductionList.add(i.intValue()));
+
+            costFunctionBuilder.setScheduledProduction(scheduledProductionList);
+
+            var optimalCostFunction = costFunctionBuilder.build();
+            optimalCostFunction.getCost();
+
+            this.historyDTO = new HistoryDTO(optimalCostFunction.getHistory());
+            // Improwizacjia kończy się tutaj
+
+//            this.historyDTO = solverBuilder.getHistory();
             this.costHistory = solver.getCostHistory();
             this.numberOfIter = solver.getIterNumber();
             return historyDTO;

@@ -20,6 +20,7 @@ public class SolverBuilder {
     private double c2;
     private int iterStop;
     private int numberOfDays;
+    @Getter
     private CostFunction.CostFunctionBuilder costFunctionBuilder;
     private double lowerBoundaryValue;
     private double upperBoundaryValue;

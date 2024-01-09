@@ -123,6 +123,8 @@ public class CostFunction implements DayIncrementable, IFinishDay{
 
         history.setMissingProduct(cumulativePenalty.getMissingProduct());
 
+        history.setTotalCost(cost);
+
         return cost;
     }
 

@@ -8,7 +8,6 @@
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
-    background-color: rgb(195, 227, 236);
 }
 
 .center-container {
@@ -16,6 +15,7 @@
     flex-direction: row;
     width: 100%;
     justify-content: center;
+    background-color: rgb(195, 227, 236);
 }
 
 .formContainer {

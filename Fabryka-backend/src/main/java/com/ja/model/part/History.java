@@ -61,6 +61,10 @@ public class History implements DayIncrementable {
         totalCost += cost;
     }
 
+    public void setTotalCost(double cost) {
+        totalCost = cost;
+    }
+
     public int getProduction(int day) {
         return productionHistoryRounded.get(day);
     }
