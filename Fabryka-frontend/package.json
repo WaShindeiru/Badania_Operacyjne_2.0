@@ -1,5 +1,6 @@
 {
   "name": "factory",
+  "productName": "Optymalizacja produkcji",
   "version": "0.0.0",
   "main": "app.js",
   "scripts": {

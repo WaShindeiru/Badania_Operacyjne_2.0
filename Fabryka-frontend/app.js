@@ -6,6 +6,7 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 1440,
     height: 900,
+    icon: __dirname + '/wuzekpsculka.png',
     // webPreferences: {
     //   preload: path.join(__dirname, 'preload.js')
     // }
